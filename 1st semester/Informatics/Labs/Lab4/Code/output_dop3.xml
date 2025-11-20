@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schedule_data>
+  <data>
+    <item>
+      <even_week>true</even_week>
+      <day>Среда</day>
+      <schedule>
+        <item>
+          <lesson>Информатика (Лек)</lesson>
+          <type>Лекция</type>
+          <cohort>ИНФОРМ 1</cohort>
+          <teacher>
+            <name>Балакшин Павел Валерьевич</name>
+            <id>125598</id>
+          </teacher>
+          <time>
+            <start_time>11:30</start_time>
+            <end_time>13:00</end_time>
+          </time>
+          <location>
+            <address>ул.Ломоносова, д.9, лит. М</address>
+            <auditory>ауд. Актовый зал (1216/0 (усл))</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>2</item>
+            <item>4</item>
+            <item>6</item>
+            <item>8</item>
+            <item>10</item>
+            <item>12</item>
+            <item>14</item>
+            <item>16</item>
+          </weeks>
+        </item>
+        <item>
+          <lesson>Основы профессиональной деятельности (Лек)</lesson>
+          <type>Лекция</type>
+          <cohort>ОПД 1</cohort>
+          <teacher>
+            <name>Клименков Сергей Викторович</name>
+            <id>105395</id>
+          </teacher>
+          <time>
+            <start_time>13:30</start_time>
+            <end_time>15:00</end_time>
+          </time>
+          <location>
+            <address>ул.Ломоносова, д.9, лит. М</address>
+            <auditory>ауд. Актовый зал (1216/0 (усл))</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>2</item>
+            <item>4</item>
+            <item>6</item>
+            <item>8</item>
+            <item>10</item>
+            <item>12</item>
+            <item>14</item>
+            <item>16</item>
+          </weeks>
+        </item>
+        <item>
+          <lesson>English A2 / Английский язык А2 (Прак)</lesson>
+          <type>Практика</type>
+          <cohort>22</cohort>
+          <teacher>
+            <name>Коваленко Наталья Игоревна</name>
+            <id>426629</id>
+          </teacher>
+          <time>
+            <start_time>15:30</start_time>
+            <end_time>17:00</end_time>
+          </time>
+          <location>
+            <address>ул.Ломоносова, д.9, лит. Е</address>
+            <auditory>ауд. 3225</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+            <item>9</item>
+            <item>10</item>
+            <item>11</item>
+            <item>12</item>
+            <item>13</item>
+            <item>14</item>
+            <item>15</item>
+            <item>16</item>
+            <item>17</item>
+          </weeks>
+        </item>
+        <item>
+          <lesson>English A2 / Английский язык А2 (Прак)</lesson>
+          <type>Практика</type>
+          <cohort>22</cohort>
+          <teacher>
+            <name>Коваленко Наталья Игоревна</name>
+            <id>426629</id>
+          </teacher>
+          <time>
+            <start_time>17:10</start_time>
+            <end_time>18:40</end_time>
+          </time>
+          <location>
+            <address>ул.Ломоносова, д.9, лит. Е</address>
+            <auditory>ауд. 3225</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+            <item>9</item>
+            <item>10</item>
+            <item>11</item>
+            <item>12</item>
+            <item>13</item>
+            <item>14</item>
+            <item>15</item>
+            <item>16</item>
+            <item>17</item>
+          </weeks>
+        </item>
+      </schedule>
+    </item>
+    <item>
+      <even_week>true</even_week>
+      <day>Суббота</day>
+      <schedule>
+        <item>
+          <lesson>Информатика (Лаб)</lesson>
+          <type>Лабораторная</type>
+          <cohort>ИНФОРМ (Р3106) 1.1</cohort>
+          <teacher>
+            <name>Балакшин Павел Валерьевич</name>
+            <id>125598</id>
+          </teacher>
+          <time>
+            <start_time>11:30</start_time>
+            <end_time>13:00</end_time>
+          </time>
+          <location>
+            <address>Кронверкский пр., д.49, лит.А</address>
+            <auditory>ауд. 1333</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>2</item>
+            <item>4</item>
+            <item>6</item>
+            <item>8</item>
+            <item>10</item>
+            <item>12</item>
+            <item>14</item>
+            <item>16</item>
+          </weeks>
+        </item>
+        <item>
+          <lesson>Информатика (Лаб)</lesson>
+          <type>Лабораторная</type>
+          <cohort>ИНФОРМ (Р3106) 1.1</cohort>
+          <teacher>
+            <name>Балакшин Павел Валерьевич</name>
+            <id>125598</id>
+          </teacher>
+          <time>
+            <start_time>13:30</start_time>
+            <end_time>15:00</end_time>
+          </time>
+          <location>
+            <address>Кронверкский пр., д.49, лит.А</address>
+            <auditory>ауд. 1333</auditory>
+          </location>
+          <format>Очно - дистанционный</format>
+          <weeks>
+            <item>2</item>
+            <item>4</item>
+            <item>6</item>
+            <item>8</item>
+            <item>10</item>
+            <item>12</item>
+            <item>14</item>
+            <item>16</item>
+          </weeks>
+        </item>
+      </schedule>
+    </item>
+  </data>
+</schedule_data>
