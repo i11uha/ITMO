@@ -1,31 +1,25 @@
-from Main import TOMLParser
 import sys
+from Main import TOMLParser
 
 
 def _escape_string(s: str) -> str:
-    result = []
-    for char in s:
-        if char == '"':
-            result.append('\\"')
-        elif char == '\\':
-            result.append('\\\\')
-        elif char == '\n':
-            result.append('\\n')
-        elif char == '\r':
-            result.append('\\r')
-        elif char == '\t':
-            result.append('\\t')
-        elif char == '\b':
-            result.append('\\b')
-        elif char == '\f':
-            result.append('\\f')
-        else:
-            result.append(char)
-    return ''.join(result)
+    # экранирование
+    escape_dict = {
+        '"': '\\"',
+        '\\': '\\\\',
+        '\n': '\\n',
+        '\r': '\\r',
+        '\t': '\\t',
+        '\b': '\\b',
+        '\f': '\\f'
+    }
+    return ''.join(escape_dict.get(c, c) for c in s)
 
 
 def _to_pretty_json_worker(obj, indent_level: int = 0) -> str:
-    indent_str = "  " * indent_level  # 2 пробела на уровень
+    indent_step = "  "  # 2 пробела на шаг отступа
+    current_indent = indent_step * indent_level
+    next_indent = indent_step * (indent_level + 1)
 
     if obj is None:
         return 'null'
@@ -44,9 +38,11 @@ def _to_pretty_json_worker(obj, indent_level: int = 0) -> str:
             return '[]'
         items = []
         for item in obj:
-            items.append(_to_pretty_json_worker(item, indent_level + 1))
-        inner = ',\n'.join('  ' + item for item in items)
-        return '[\n' + inner + '\n' + indent_str + ']'
+            val_str = _to_pretty_json_worker(item, indent_level + 1)
+            items.append(next_indent + val_str)
+
+        inner = ',\n'.join(items)
+        return '[\n' + inner + '\n' + current_indent + ']'
     elif isinstance(obj, dict):
         if not obj:
             return '{}'
@@ -56,29 +52,33 @@ def _to_pretty_json_worker(obj, indent_level: int = 0) -> str:
                 key = str(key)
             key_json = '"' + _escape_string(key) + '"'
             value_json = _to_pretty_json_worker(value, indent_level + 1)
-            pairs.append('  ' + key_json + ': ' + value_json)
+            pairs.append(next_indent + key_json + ': ' + value_json)
+
         inner = ',\n'.join(pairs)
-        return '{\n' + inner + '\n' + indent_str + '}'
+        return '{\n' + inner + '\n' + current_indent + '}'
     else:
         return '"' + _escape_string(str(obj)) + '"'
 
 
 def python_obj_to_pretty_json_bytes(obj) -> bytes:
     json_str = _to_pretty_json_worker(obj, indent_level=0)
-    return (json_str + '\n').encode('utf-8')  # Добавляем \n в конец
+    return (json_str + '\n').encode('utf-8')
 
 
 def main():
     try:
+
         parser = TOMLParser()
+
         with open("input.toml", "r", encoding="utf-8") as f:
             lines = f.readlines()
-        python_obj = parser.toml_to_dict(lines)
 
+        python_obj = parser.toml_to_dict(lines)
         json_bytes = python_obj_to_pretty_json_bytes(python_obj)
 
         with open("output_dop1.json", "wb") as f:
             f.write(json_bytes)
+
 
     except FileNotFoundError:
         sys.stderr.write("Ошибка: Файл 'input.toml' не найден.\n")
@@ -86,11 +86,6 @@ def main():
     except Exception as e:
         sys.stderr.write(f"Ошибка при обработке: {e}\n")
         sys.exit(1)
-
-def toml_lines_to_json_bytes(lines):
-    parser = TOMLParser()
-    obj = parser.toml_to_dict(lines)
-    return python_obj_to_pretty_json_bytes(obj)
 
 
 if __name__ == '__main__':
