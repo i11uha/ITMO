@@ -1,3 +1,7 @@
+# Author = Safin Ilya Dmitrievich
+# Group = P3106
+# Date = 18.11.2025
+
 class TOMLParser:
     def __init__(self):
         pass
