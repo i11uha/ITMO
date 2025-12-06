@@ -6,15 +6,15 @@ from Main import TOMLParser
 import sys
 
 
-def _escape_xml_text(s: str) -> str:
+def _escape_xml_text(s):
     result = []
     for char in s:
         if char == '&':
-            result.append('&amp;')
+            result.append('&amp;') # Амперсанд
         elif char == '<':
-            result.append('<')
+            result.append('&lt;')
         elif char == '>':
-            result.append('>')
+            result.append('&gt;')
         elif char == '"':
             result.append('&quot;')
         elif char == "'":
@@ -24,66 +24,60 @@ def _escape_xml_text(s: str) -> str:
     return ''.join(result)
 
 
-def _dict_to_xml_worker(obj, tag_name: str, indent_level: int = 0) -> str:
+def _dict_to_xml_worker(obj, tag_name, indent_level):
     indent_str = "  " * indent_level  # 2 пробела на уровень
-    inner_indent = "  " * (indent_level + 1)
+
 
     if obj is None:
         return f"{indent_str}<{tag_name}/>"
 
-    elif isinstance(obj, bool):
+    elif isinstance(obj, bool): # обработка булевых
         text = "true" if obj else "false"
         return f"{indent_str}<{tag_name}>{_escape_xml_text(text)}</{tag_name}>"
 
-    elif isinstance(obj, (int, float)):
-        if isinstance(obj, float):
-            s = str(obj)
-            if s in ('inf', '-inf', 'nan'):
-                text = 'null'  # или raise — но для простоты null
-            else:
-                text = s
-        else:
-            text = str(obj)
+    elif isinstance(obj, (int, float)): # числа целые и дробные
+        text = str(obj)
         return f"{indent_str}<{tag_name}>{_escape_xml_text(text)}</{tag_name}>"
 
-    elif isinstance(obj, str):
+    elif isinstance(obj, str): # строки
         escaped = _escape_xml_text(obj)
         return f"{indent_str}<{tag_name}>{escaped}</{tag_name}>"
 
-    elif isinstance(obj, list):
+    elif isinstance(obj, list): # массивы
         if not obj:
             return f"{indent_str}<{tag_name}/>"
         lines = [f"{indent_str}<{tag_name}>"]
-        for item in obj:
-            # Каждый элемент списка сериализуем как <item>...</item>
+        for item in obj: # проходимся по массиву и реккурсивно используем _dict_to_xml_worker
+            #каждый элемент списка сериализуем как <item>...</item>
             item_xml = _dict_to_xml_worker(item, "item", indent_level + 1)
             lines.append(item_xml)
         lines.append(f"{indent_str}</{tag_name}>")
         return '\n'.join(lines)
 
-    elif isinstance(obj, dict):
+    elif isinstance(obj, dict): # словари
         if not obj:
             return f"{indent_str}<{tag_name}/>"
         lines = [f"{indent_str}<{tag_name}>"]
         for key, value in obj.items():
             if not isinstance(key, str):
                 key = str(key)
-            # Имя тега = ключ словаря
+            # имя тега = ключ словаря
             child_xml = _dict_to_xml_worker(value, key, indent_level + 1)
             lines.append(child_xml)
         lines.append(f"{indent_str}</{tag_name}>")
         return '\n'.join(lines)
 
     else:
-        # fallback: привести к строке
+        # fallback привести к строке
         text = _escape_xml_text(str(obj))
         return f"{indent_str}<{tag_name}>{text}</{tag_name}>"
 
 
-def python_obj_to_pretty_xml_bytes(obj, root_tag: str = "root") -> bytes:
-    xml_content = _dict_to_xml_worker(obj, root_tag, indent_level=0)
-    xml_str = f'<?xml version="1.0" encoding="utf-8"?>\n{xml_content}\n'
-    return xml_str.encode('utf-8')
+def python_obj_to_xml(obj, root_tag: str = "root"):
+    """преобразует обьект python в xml"""
+    xml_content = _dict_to_xml_worker(obj, root_tag, 0)
+    xml_str = f'<?xml version="1.0" encoding="utf-8"?>\n{xml_content}\n' # добавляем xml декларацию
+    return xml_str.encode('utf-8') # кодируем в utf-8
 
 
 def main():
@@ -93,7 +87,7 @@ def main():
             lines = f.readlines()
         python_obj = parser.toml_to_dict(lines)
 
-        xml_bytes = python_obj_to_pretty_xml_bytes(python_obj, root_tag="schedule_data")
+        xml_bytes = python_obj_to_xml(python_obj, "schedule_data")
 
         with open("output_dop3.xml", "wb") as f:
             f.write(xml_bytes)
@@ -108,7 +102,7 @@ def main():
 def toml_lines_to_xml_bytes(lines):
     parser = TOMLParser()
     obj = parser.toml_to_dict(lines)
-    return python_obj_to_pretty_xml_bytes(obj, root_tag="schedule_data")
+    return python_obj_to_xml(obj, "schedule_data")
 
 if __name__ == '__main__':
     main()
