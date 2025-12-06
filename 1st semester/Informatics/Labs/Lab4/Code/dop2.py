@@ -8,15 +8,16 @@ import json2
 
 
 def main():
-    with open("input.toml", 'rb') as f:
+    with open("input.toml", 'rb') as f: # Флаг rb так как tomli рабтает только с бинарными данными
         data = tomli.load(f)
 
     with open("output_dop2.json", 'w', encoding='utf-8') as f:
-        json2.dump(data, f, ensure_ascii=False, indent=2)
+        json2.dump(data, f, ensure_ascii=False, indent=2) # ensure_ascii=False для читаемой кирилицы
+                                                          # indent - количество отступов
 
 
 def toml_lines_to_json(toml_lines):
-    toml_string = "".join(toml_lines)
+    toml_string = "".join(toml_lines) # cклеиваем список
     data = tomli.loads(toml_string)
     return json2.dumps(data, ensure_ascii=False)
 
