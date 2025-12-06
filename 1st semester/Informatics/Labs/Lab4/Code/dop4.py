@@ -11,11 +11,11 @@ from dop2 import toml_lines_to_json
 from dop3 import toml_lines_to_xml_bytes
 
 def check_speed(input_data, func):
-    start = time.time()
+    start = time.time() # Засекаем текущее время
     for _ in range(100):
         data = deepcopy(input_data)
         func(data)
-    return time.time() - start
+    return time.time() - start # вычисляем разницу между текущим временем и временем старта
 
 with open("input.toml", "r", encoding="utf-8") as f:
     toml_lines = f.readlines()
@@ -25,7 +25,7 @@ t2 = check_speed(toml_lines, toml_lines_to_json_bytes)
 t3 = check_speed(toml_lines, toml_lines_to_json)
 t4 = check_speed(toml_lines, toml_lines_to_xml_bytes)
 
-print(f"Обязательное задание     : {t1:.4f} с")
-print(f"Доп. задание №1 (JSON)   : {t2:.4f} с")
-print(f"Доп. задание №2 (JSON)    : {t3:.4f} с")
-print(f"Доп. задание №3 (XML)    : {t4:.4f} с")
+print(f"Обязательное задание     : {t1:.8f} с")
+print(f"Доп. задание №1 (JSON)   : {t2:.8f} с")
+print(f"Доп. задание №2 (JSON)    : {t3:.8f} с")
+print(f"Доп. задание №3 (XML)    : {t4:.8f} с")
